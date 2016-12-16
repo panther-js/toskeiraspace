@@ -7,7 +7,7 @@
 window.toskeiraspace = () => {
   let c = document.getElementById('c');
   class Player {
-    constructor(score, pangle, initialClick, initialMove){
+    constructor (score, pangle, initialClick, initialMove) {
       this.score = score;
       this.pangle = pangle;
       this.click = initialClick;
@@ -22,9 +22,9 @@ window.toskeiraspace = () => {
   }
 
   var player = new Player(0, 1, { x: 400, y: 300 }, { x: 400, y: 300 });
-  
+
   class Sprite {
-    constructor(p){
+    constructor (p) {
       if (!p) {
         p = {};
       }
@@ -36,34 +36,34 @@ window.toskeiraspace = () => {
     }
 }
 
-  class Rock extends Sprite{
-    constructor (p){
+  class Rock extends Sprite {
+    constructor (p) {
       super(p);
 
       this.x = Math.random() * 800;
       this.y = Math.random() * 600;
       this.width = 5;
       this.points = [ {
-        x : -5 + Math.random() * -2,
-        y : 5 + Math.random() * 3
+        x: -5 + Math.random() * -2,
+        y: 5 + Math.random() * 3
       }, {
-        x : 5 + Math.random() * 2,
-        y : 5 + Math.random() * 4
+        x: 5 + Math.random() * 2,
+        y: 5 + Math.random() * 4
       }, {
-        x : 5 + Math.random() * 2,
-        y : -5 + Math.random() * -3
+        x: 5 + Math.random() * 2,
+        y: -5 + Math.random() * -3
       }, {
-        x : 2 + Math.random() * 2,
-        y : -5 + Math.random() * -3
+        x: 2 + Math.random() * 2,
+        y: -5 + Math.random() * -3
       }, {
-        x : -5 + Math.random() * -2.6,
-        y : -5 + Math.random() * -2
+        x: -5 + Math.random() * -2.6,
+        y: -5 + Math.random() * -2
       }, {
-        x : -5 + Math.random() * 2,
-        y : 5 + Math.random() * 2
+        x: -5 + Math.random() * 2,
+        y: 5 + Math.random() * 2
       } ];
       this.angle = Math.random();
-      this.step = () =>  {
+      this.step = () => {
         this.angle += 0.01;
       };
       this.draw = (ctx) => {
@@ -78,27 +78,26 @@ window.toskeiraspace = () => {
         }
         ctx.stroke();
       };
-      this.mouseover = (player) => { 
-        var x = player.move.x - this.x; 
-        var y = player.move.y - this.y; 
-        return Math.sqrt(x * x + y * y) < 15; 
-      }; 
+      this.mouseover = (player) => {
+        var x = player.move.x - this.x;
+        var y = player.move.y - this.y;
+        return Math.sqrt(x * x + y * y) < 15;
+      };
     }
 
   }
 
-  class Bullet extends Sprite{
-    constructor(p){
+  class Bullet extends Sprite {
+    constructor (p) {
       super(p);
       this.dx = p.dx;
       this.dy = p.dy;
       this.range = 400;
       this.target = p.target;
       this.speed = 1.7;
-      this.step = () =>  {
-
-        this.x += this.speed * Math.cos( this.angle );
-        this.y += this.speed * Math.sin( this.angle );
+      this.step = () => {
+        this.x += this.speed * Math.cos(this.angle);
+        this.y += this.speed * Math.sin(this.angle);
 
         let stopped = false;
               // it will not float forever...
@@ -120,21 +119,20 @@ window.toskeiraspace = () => {
         ctx.stroke();
       };
       this.checkColision = (arrObject) => {
-
         let bulletColisionRangeX1 = this.x - 30;
         let bulletColisionRangeY1 = this.y - 30;
 
         let insideX = (objX) => {
-          return (bulletColisionRangeX1 <= objX && objX  <= ( bulletColisionRangeX1 + 60 ) );
+          return (bulletColisionRangeX1 <= objX && objX <= (bulletColisionRangeX1 + 60));
         };
 
         let insideY = (objY) => {
-          return (bulletColisionRangeY1 <= objY && objY <= ( bulletColisionRangeY1 + 60 ) );
+          return (bulletColisionRangeY1 <= objY && objY <= (bulletColisionRangeY1 + 60));
         };
 
-        return arrObject = arrObject.forEach((element) => {
+        return arrObject.forEach((element) => {
           if (insideX(element.x) && insideY(element.y)) {
-            if ((element.x - element.width ) <= (this.x + 2) && (this.x - 2) <=  (element.x + element.width) && (element.y - element.width) <= (this.y + 2) && (this.y - 2) <=  (element.y + element.width)) {
+            if ((element.x - element.width) <= (this.x + 2) && (this.x - 2) <= (element.x + element.width) && (element.y - element.width) <= (this.y + 2) && (this.y - 2) <= (element.y + element.width)) {
               this.isDead = true;
               element.isDead = true;
             }
@@ -144,14 +142,14 @@ window.toskeiraspace = () => {
     }
   }
 
-  class Ship extends Sprite{
-    constructor(p){
+  class Ship extends Sprite {
+    constructor (p) {
       super(p);
-        
+
       this.openFire = false;
       this.draw = (ctx) => {
         ctx.strokeStyle = this.color;
-        ctx.strokeStyle = 'LimeGreen'; //little hack
+        ctx.strokeStyle = 'LimeGreen'; // little hack
         ctx.translate(this.x, this.y);
         ctx.rotate(this.angle);
         ctx.beginPath();
@@ -163,15 +161,15 @@ window.toskeiraspace = () => {
         ctx.stroke();
       };
 
-      this.step = () =>  {
+      this.step = () => {
           // rotate
         let x = player.move.x - this.x;
         let y = player.move.y - this.y;
         this.originalAngle = Math.atan2(y, x);
         this.angle = this.originalAngle + Math.PI / 2;
 
-        let k  = Math.abs(this.angle).toFixed(1);
-        let w  = Math.abs(player.pangle).toFixed(1);
+        let k = Math.abs(this.angle).toFixed(1);
+        let w = Math.abs(player.pangle).toFixed(1);
         if (k === w) {
           player.score += 2;
           player.pangle = (Math.random() * 1).toFixed(1);
@@ -190,23 +188,22 @@ window.toskeiraspace = () => {
           bullets.push(makeBullet(this.x, this.y, this.originalAngle, player.target.x, player.target.y, player.target));
         }
       };
-
     }
-    } 
-  
+    }
+
   let bullets = [];
   let asteroids = [];
   let ship = new Ship();
 
   let makeBullet = (sx, sy, sa, px, py, tgt) => {
-    return new Bullet ({
-      x : sx,
-      y : sy,
-      dx : px,
-      dy : py,
-      color : 'cyan',
-      angle : sa,
-      target : tgt
+    return new Bullet({
+      x: sx,
+      y: sy,
+      dx: px,
+      dy: py,
+      color: 'cyan',
+      angle: sa,
+      target: tgt
     });
   };
 
@@ -218,11 +215,11 @@ window.toskeiraspace = () => {
     let i = 30;
     while (i--) {
       asteroids.push(makeRock());
-    }  
+    }
   };
 
   makeAsteroids();
-  
+
   let step = () => {
         // cleanup first
     let i = bullets.length;
@@ -238,8 +235,7 @@ window.toskeiraspace = () => {
     while (i--) {
       if (!asteroids[i].isDead) {
         b2.push(asteroids[i]);
-      }
-      else {
+      } else {
         player.score += 10;
       }
     }
@@ -276,14 +272,14 @@ window.toskeiraspace = () => {
     i = bullets.length;
     while (i--) {
       ctx.save();
-      bullets[i].checkColision( asteroids , ctx );
+      bullets[i].checkColision(asteroids, ctx);
       bullets[i].draw(ctx);
       ctx.restore();
     }
   };
 
   let click = e => {
-    if (player.target) {// shoot instead change destination
+    if (player.target) { // shoot instead change destination
       ship.openFire = true;
     } else {
       player.click.x = e.clientX - c.offsetLeft;
@@ -301,7 +297,7 @@ window.toskeiraspace = () => {
   c.onmousemove = move;
 
   let ctx = c.getContext('2d');
-  function mainLoop() {
+  function mainLoop () {
     step();
     draw(ctx);
     setTimeout(mainLoop, 5);
@@ -309,8 +305,8 @@ window.toskeiraspace = () => {
   mainLoop();
 };
 
-if(window.addEventListener) {
+if (window.addEventListener) {
   window.addEventListener('DOMContentLoaded', window.toskeiraspace, false);
 } else {
-  window.attachEvent('onload', window.toskeiraspace );
+  window.attachEvent('onload', window.toskeiraspace);
 }
