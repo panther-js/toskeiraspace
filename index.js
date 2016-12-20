@@ -4,6 +4,10 @@
  * since 2012
  */
 
+const random = (n) => Math.random() * n;
+
+import { Sprite } from './sprite.js';
+
 window.toskeiraspace = () => {
   let c = document.getElementById('c');
   class Player {
@@ -21,46 +25,32 @@ window.toskeiraspace = () => {
     }
   }
 
-  var player = new Player(0, 1, { x: 400, y: 300 }, { x: 400, y: 300 });
-
-  class Sprite {
-    constructor (p) {
-      if (!p) {
-        p = {};
-      }
-      this.angle = p.angle || 0.7;
-      this.x = p.x || 400;
-      this.y = p.y || 300;
-      this.color = p.color || 'white';
-      this.isDead = false;
-    }
-}
+  let player = new Player(0, 1, { x: 400, y: 300 }, { x: 400, y: 300 });
 
   class Rock extends Sprite {
     constructor (p) {
       super(p);
-
-      this.x = Math.random() * 800;
-      this.y = Math.random() * 600;
+      this.x = random(800);
+      this.y = random(600);
       this.width = 5;
       this.points = [ {
-        x: -5 + Math.random() * -2,
-        y: 5 + Math.random() * 3
+        x: -5 + random(-2),
+        y: 5 + random(3)
       }, {
-        x: 5 + Math.random() * 2,
-        y: 5 + Math.random() * 4
+        x: 5 + random(2),
+        y: 5 + random(4)
       }, {
-        x: 5 + Math.random() * 2,
-        y: -5 + Math.random() * -3
+        x: 5 + random(2),
+        y: -5 + random(-3)
       }, {
-        x: 2 + Math.random() * 2,
-        y: -5 + Math.random() * -3
+        x: 2 + random(2),
+        y: -5 + random(-3)
       }, {
-        x: -5 + Math.random() * -2.6,
-        y: -5 + Math.random() * -2
+        x: -5 + random(-2.6),
+        y: -5 + random(-2)
       }, {
-        x: -5 + Math.random() * 2,
-        y: 5 + Math.random() * 2
+        x: -5 + random(2),
+        y: 5 + random(2)
       } ];
       this.angle = Math.random();
       this.step = () => {
@@ -79,8 +69,8 @@ window.toskeiraspace = () => {
         ctx.stroke();
       };
       this.mouseover = (player) => {
-        var x = player.move.x - this.x;
-        var y = player.move.y - this.y;
+        let x = player.move.x - this.x;
+        let y = player.move.y - this.y;
         return Math.sqrt(x * x + y * y) < 15;
       };
     }
@@ -100,7 +90,7 @@ window.toskeiraspace = () => {
         this.y += this.speed * Math.sin(this.angle);
 
         let stopped = false;
-              // it will not float forever...
+        // it will not float forever...
         if (stopped || this.range < 0) {
           this.isDead = true;
           if (stopped) {
@@ -148,7 +138,6 @@ window.toskeiraspace = () => {
 
       this.openFire = false;
       this.draw = (ctx) => {
-        ctx.strokeStyle = this.color;
         ctx.strokeStyle = 'LimeGreen'; // little hack
         ctx.translate(this.x, this.y);
         ctx.rotate(this.angle);
@@ -162,7 +151,7 @@ window.toskeiraspace = () => {
       };
 
       this.step = () => {
-          // rotate
+        // rotate
         let x = player.move.x - this.x;
         let y = player.move.y - this.y;
         this.originalAngle = Math.atan2(y, x);
@@ -172,10 +161,10 @@ window.toskeiraspace = () => {
         let w = Math.abs(player.pangle).toFixed(1);
         if (k === w) {
           player.score += 2;
-          player.pangle = (Math.random() * 1).toFixed(1);
+          player.pangle = random(1).toFixed(1);
         }
 
-                // move (and shoot something maybe)
+        // move (and shoot something maybe)
         x = player.click.x - this.x;
         y = player.click.y - this.y;
         let d = Math.sqrt(x * x + y * y);
@@ -189,7 +178,7 @@ window.toskeiraspace = () => {
         }
       };
     }
-    }
+  }
 
   let bullets = [];
   let asteroids = [];
@@ -221,7 +210,7 @@ window.toskeiraspace = () => {
   makeAsteroids();
 
   let step = () => {
-        // cleanup first
+    // cleanup first
     let i = bullets.length;
     let b2 = [];
     while (i--) {
@@ -241,7 +230,7 @@ window.toskeiraspace = () => {
     }
     asteroids = b2;
     player.target = null;
-        // simulation step
+    // simulation step
     i = bullets.length;
     while (i--) {
       bullets[i].step();
@@ -257,10 +246,10 @@ window.toskeiraspace = () => {
   };
 
   let draw = ctx => {
-        // we always wipe the screen
+    // we always wipe the screen
     ctx.clearRect(0, 0, c.width, c.height);
     ctx.save();
-    player.draw(ctx);// HUD
+    player.draw(ctx); // HUD
     ship.draw(ctx);
     ctx.restore();
     let i = asteroids.length;
