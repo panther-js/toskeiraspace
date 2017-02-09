@@ -1,4 +1,6 @@
 # toskeiraspace
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/panther-js/toskeiraspace.svg)](https://greenkeeper.io/)
 Ordinary yet funny HTML 5 asteroids clone.
 
 ## How to run
