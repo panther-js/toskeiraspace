@@ -16,7 +16,7 @@ function createWindow () {
     slashes: true
   }));
 
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   mainWindow.on('closed', function () {
     mainWindow = null;
