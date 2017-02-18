@@ -3,7 +3,12 @@ Ordinary yet funny HTML 5 asteroids clone.
 
 ## How to run
 
-clone and open index.html
+```
+git clone git@github.com:panther-js/toskeiraspace.git
+cd toskeiraspace
+npm install
+npm start
+```
 
 ![Alt ts](https://github.com/panther-js/toskeiraspace/raw/master/ts.png)
 

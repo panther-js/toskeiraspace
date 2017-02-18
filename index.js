@@ -6,7 +6,7 @@
 
 const random = (n) => Math.random() * n;
 
-import { Sprite } from './sprite.js';
+const Sprite = require('./sprite.js');
 
 window.toskeiraspace = () => {
   let c = document.getElementById('c');

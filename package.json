@@ -5,6 +5,7 @@
   "author": "panther-js",
   "license": "WTFPL",
   "scripts": {
+    "start": "electron main.js",
     "test": "tape test/*.js | tap-spec",
     "lint": "eslint *.js test/*.js"
   },
@@ -22,5 +23,8 @@
     "tap-spec": "~4.1.1",
     "tape": "~4.6.2"
   },
-  "description": "Ordinary yet funny HTML 5 asteroids clone."
+  "description": "Ordinary yet funny HTML 5 asteroids clone.",
+  "dependencies": {
+    "electron": "^1.4.15"
+  }
 }
