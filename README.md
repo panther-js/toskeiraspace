@@ -10,7 +10,7 @@ npm install
 npm start
 ```
 
-![Alt ts](https://github.com/panther-js/toskeiraspace/raw/master/ts.png)
+![Alt ts](https://github.com/panther-js/toskeiraspace/raw/master/tselectron.png)
 
 > Initial idea and javascript core js game by [Sombriks](https://github.com/sombriks).
 
