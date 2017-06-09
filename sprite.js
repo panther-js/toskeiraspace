@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+( () => {
   class Sprite {
     constructor (p) {
       if (!p) {
