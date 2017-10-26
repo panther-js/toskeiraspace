@@ -1,12 +1,8 @@
-/**
- * such code is intended t be strictly fun and experimental.
- * autor: Sombriks
- * since 2012
- */
-
-const random = (n) => Math.random() * n;
+'use strict';
 
 const Sprite = require('./sprite.js');
+
+const random = (n) => Math.random() * n;
 
 window.toskeiraspace = () => {
   let c = document.getElementById('c');

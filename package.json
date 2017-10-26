@@ -1,8 +1,9 @@
 {
   "name": "toskeiraspace",
+  "description": "Ordinary yet funny HTML 5 asteroids clone.",
   "version": "0.0.1",
   "main": "index.js",
-  "author": "panther-js",
+  "author": "Helio Frota",
   "license": "WTFPL",
   "scripts": {
     "start": "electron main.js",
@@ -23,8 +24,7 @@
     "tap-spec": "~4.1.1",
     "tape": "~4.6.2"
   },
-  "description": "Ordinary yet funny HTML 5 asteroids clone.",
   "dependencies": {
-    "electron": "^1.4.15"
+    "electron": "^1.7.9"
   }
 }
